@@ -107,7 +107,7 @@ $ srake search "breast cancer" --format json
 
 ### Semantic Search with Biomedical Embeddings
 
-SRAKE introduces biomedical-specific semantic retrieval by integrating **SapBERT** (Self-Alignment Pre-training for Biomedical Entity Representations)—a BERT-family model trained to cluster synonyms and canonical entity names across biomedical vocabularies [@sapbert]. This choice improves recall for domain phrases (e.g., *HER2-positive breast carcinoma* ↔ *ERBB2+ breast cancer*) and reduces vocabulary mismatch common in free-text metadata. At ingest, SRAKE generates stable, versioned embeddings for key text fields (titles, abstracts/labels, organism- and assay-specific descriptors), caches them on disk, and records the model/version hash to guarantee reproducibility. At query time, the user’s text prompt is embedded with the same tokenizer and model; similarity is computed with cosine distance and fused with BM25 in the hybrid ranker. To balance accuracy and throughput, the pipeline supports batched inference, mean pooling over token embeddings (default), optional CLS pooling, L2 normalization, and provider selection (CPU/GPU) via ONNX Runtime. Embeddings are stored in a field-aware layout to allow weighting per field during ranking, and quantization (e.g., dynamic or int8) can be enabled to shrink memory and accelerate inference with negligible loss for retrieval.
+SRAKE introduces biomedical-specific semantic retrieval by integrating **SapBERT** (Self-Alignment Pre-training for Biomedical Entity Representations)—a BERT-family model trained to cluster synonyms and canonical entity names across biomedical vocabularies [@sapbert]. This choice improves recall for domain phrases (e.g., *HER2-positive breast carcinoma* <-> *ERBB2+ breast cancer*) and reduces vocabulary mismatch common in free-text metadata. At ingest, SRAKE generates stable, versioned embeddings for key text fields (titles, abstracts/labels, organism- and assay-specific descriptors), caches them on disk, and records the model/version hash to guarantee reproducibility. At query time, the user’s text prompt is embedded with the same tokenizer and model; similarity is computed with cosine distance and fused with BM25 in the hybrid ranker. To balance accuracy and throughput, the pipeline supports batched inference, mean pooling over token embeddings (default), optional CLS pooling, L2 normalization, and provider selection (CPU/GPU) via ONNX Runtime. Embeddings are stored in a field-aware layout to allow weighting per field during ranking, and quantization (e.g., dynamic or int8) can be enabled to shrink memory and accelerate inference with negligible loss for retrieval.
 
 
 ```go
@@ -231,5 +231,11 @@ The platform's success demonstrates several key principles:
 4. Quality control mechanisms are essential for trustworthy results
 
 With its open-source availability, comprehensive documentation, and active development, SRAKE is positioned to serve as critical infrastructure for SRA metadata access in both traditional bioinformatics workflows and emerging AI applications. The platform fulfills the promise of making SRA metadata truly accessible for offline analysis, LLM enhancement, and RAG pipelines while providing the performance and reliability required for production use.
+
+
+## Data and Software Availability
+
+- **Software Repository**: https://github.com/nishad/srake
+- **Documentation**: https://nishad.github.io/srake/
 
 ## References
