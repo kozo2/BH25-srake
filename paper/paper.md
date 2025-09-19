@@ -80,8 +80,8 @@ This work makes the following contributions:
 SRAKE implements a three-tier retrieval stack that composes structured filters, lexical relevance, and semantic similarity into a single, tunable ranking pipeline. At ingest, metadata are normalized into a relational core for SQL filtering; in parallel, text-bearing fields are indexed for full-text search (Bleve) to provide BM25 scoring, and precomputed biomedical embeddings (e.g., SapBERT) enable vector search over the same records. At query time, structured predicates (e.g., organism, assay, date ranges) are applied first in the SQL layer to prune the candidate set efficiently. The surviving candidates are scored in the full-text layer using BM25 for keyword intent, while the vector layer computes cosine similarity between the query embedding and candidate embeddings to capture synonymy and concept-level matches. Scores are min–max normalized per layer, deduplicated at the accession level, and combined via a hybrid ranker (tie-broken by recency and field priority when needed). The hybrid mechanism is configurable—users can bias toward precise keyword matches or concept similarity, and quality gates from the evaluation framework can drop results below minimum thresholds before presentation. The final score is computed as:
 
 ```go
-finalScore = α * BM25Score + (1-α) * CosineSimilarity
-// α is configurable via --hybrid-weight flag (default 0.7)
+finalScore = a * BM25Score + (1-a) * CosineSimilarity
+// a is configurable via --hybrid-weight flag (default 0.7)
 ```
 
 This architecture yields fast, exact filtering; robust lexical retrieval for well-specified queries; and resilient semantic matching for noisy or underspecified prompts—supporting both human workflows and AI agents that benefit from controllable, streaming, and non-blocking search behavior.
