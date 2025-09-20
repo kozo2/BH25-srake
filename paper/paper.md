@@ -12,14 +12,17 @@ authors:
     affiliation: 1
   - name: Kozo Nishida
     orcid: 0000-0001-8501-7319
-    affiliation: [1,2]
+    affiliation: [2,3]
 affiliations:
   - name: RIKEN Center for Integrative Medical Sciences, Yokohama, Japan
     index: 1
     ror: 04mb6s476
-  - name: Tokyo University of Agriculture and Technology, Koganei, JP
-    ror: 00qg0kr10
+  - name: RIKEN Center for Biosystems Dynamics Research, Kobe, Japan
     index: 2
+    ror: 023rffy11
+  - name: Tokyo University of Agriculture and Technology, Koganei, Japan
+    index: 3
+    ror: 00qg0kr10
 date: 20 September 2025
 cito-bibliography: paper.bib
 event: BH25JP
